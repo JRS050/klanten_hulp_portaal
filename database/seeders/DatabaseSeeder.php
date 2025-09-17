@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Admin',
-            'password' => 'test'
+            'password' => 'test',
+            'admin_status' => true
         ]);
     }
 }
