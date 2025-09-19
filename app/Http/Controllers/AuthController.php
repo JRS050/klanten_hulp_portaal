@@ -11,14 +11,14 @@ class AuthController extends Controller
     public function authenticate(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
-            'name' => ['required'],
+            'email' => ['required'],
             'password' => ['required'],
         ]);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
  
-            return redirect()->intended('/me');
+            return redirect()->intended('/myTickets');
         }
     }
 
@@ -27,7 +27,9 @@ class AuthController extends Controller
         
         return response()->json([ 
             'id' => $user->id, 
-            'name' => $user->name
+            'name' => $user->name,
+            'email' => $user->email,
+            'admin_status' => $user->admin_status
         ]);
     }
 }

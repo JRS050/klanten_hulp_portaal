@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const form = ref({
-    name:'',
+    email:'',
     password:''
 });
 
@@ -23,8 +23,8 @@ const login = async () =>{
 
 <template>
     <form @submit.prevent="login">
-        <label>Name:</label>
-        <input v-model="form.name" required type="text"></input>
+        <label>Email:</label>
+        <input v-model="form.email" required type="text"></input>
         <label>Password:</label>
         <input v-model="form.password" required type="password"></input>
         <button type="submit">Login</button>
