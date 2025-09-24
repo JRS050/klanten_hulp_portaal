@@ -29,7 +29,9 @@ http.interceptors.request.use(
 http.interceptors.response.use(
     response => response,
     error => {
-        if (error.response && error.response.status === 422) {
+        console.log(error);
+        
+        if (error.response && error.response.status != 200) {
             setErrorBag(error.response.data.errors); // Sla validatiefouten op in de error bag
             setMessage(error.response.data.message); // Sla de algemene foutmelding op
         }

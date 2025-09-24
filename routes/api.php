@@ -9,5 +9,7 @@ Route::get('/me', [AuthController::class, 'me']
 )->middleware('auth:sanctum');
 
 Route::post('/auth',[AuthController::class, 'authenticate']);
+Route::delete('/logout',[AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('/register',[AuthController::class, 'register']);
 
 Route::get('/myTickets',[TicketController::class, 'index']);

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import axios from 'axios';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import errorMessage from '../../services/error/errorMessage.vue';
+import { getRequest, postRequest } from '../../services/http';
 
 const router = useRouter();
 
@@ -12,9 +13,9 @@ const form = ref({
 
 
 const login = async () =>{
-    await axios.get('/sanctum/csrf-cookie')
+    await getRequest('/sanctum/csrf-cookie')
 
-    await axios.post('/api/auth', form.value)
+    await postRequest('/auth', form.value)
     
     router.push({ name: 'me'});
 };
@@ -22,6 +23,10 @@ const login = async () =>{
 </script>
 
 <template>
+    <button @click="router.push({ name: 'register'});">Registration page</button>
+    <br>
+    <errorMessage />
+    <br>
     <form @submit.prevent="login">
         <label>Email:</label>
         <input v-model="form.email" required type="text"></input>
