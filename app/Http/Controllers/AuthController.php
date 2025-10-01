@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
@@ -53,16 +54,35 @@ class AuthController extends Controller
             'name' => ['required'],
             'email' => ['required'],
             'password' => ['required'],
+            'admin_status' => ['required'],
         ]);
 
         $user = User::create([
             'name' => $credentials['name'],
             'email' => $credentials['email'],
             'password' => $credentials['password'],
+            'admin_status' => $credentials['admin_status'],
         ]);
 
-        Mail::to($user())->send(new RegistrationComplete);
+        Mail::to($user)->send(new RegistrationComplete);
 
         return response()->json(['message' => 'Registration successful!'], 201);
+    }
+
+
+    public function forgotPasswordRequest(Request $request){
+        $request->validate(['email' => 'required|email']);
+ 
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+    
+        return $status === Password::ResetLinkSent
+            ? back()->with(['status' => __($status)])
+            : back()->withErrors(['email' => __($status)]);
+    }
+
+    public function forgotPasswordReset(){
+
     }
 }

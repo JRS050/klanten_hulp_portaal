@@ -34,4 +34,6 @@ const login = async () =>{
         <input v-model="form.password" required type="password"></input>
         <button type="submit">Login</button>
     </form>
+
+    <button @click="router.push({ name: 'forgot-password'});">Forgot password?</button>
 </template>

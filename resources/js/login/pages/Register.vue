@@ -2,13 +2,15 @@
     import { ref } from 'vue';
     import { useRouter } from 'vue-router';
     import { postRequest } from '../../services/http';
+    import errorMessage from '../../services/error/errorMessage.vue';
 
     const router = useRouter();
 
     const form = ref({
         name:'',
         email:'',
-        password:''
+        password:'',
+        admin_status:false,
     });
 
     const register = async () =>{
@@ -18,6 +20,7 @@
     };
 </script>
 <template>
+    <errorMessage />
     <button @click="router.push({ name: 'login'});">Login page</button>
     <form @submit.prevent="register">
         <label>Name:</label>
