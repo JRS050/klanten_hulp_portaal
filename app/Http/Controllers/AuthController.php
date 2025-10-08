@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Mail\RegistrationComplete;
 use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -82,7 +86,33 @@ class AuthController extends Controller
             : back()->withErrors(['email' => __($status)]);
     }
 
-    public function forgotPasswordReset(){
+    protected function broker()
+    {
+        return Password::broker();
+    }
 
+    public function forgotPasswordReset(Request $request){
+            $request->validate([
+            'token' => 'required',
+            'password' => 'required|confirmed',
+        ]);
+
+        $email = DB::table('password_reset_tokens')
+                    ->where('token', '=', $request->token)
+                    ->get();
+
+        $response = $this->broker()->reset(
+            $request->only('password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->password = Hash::make($password);
+                $user->save();
+            }
+        );
+
+        if ($response == Password::PASSWORD_RESET) {
+            return response()->json(['message' => 'Password has been reset.']);
+        }
+
+        return response()->json(['error' => 'Failed to reset password.'], 400);
     }
 }

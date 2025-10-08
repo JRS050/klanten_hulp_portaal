@@ -3,5 +3,5 @@ import { loginRoutes } from '../login/routes';
 
 export const router = createRouter({
     history: createWebHistory(),
-    routes: [...loginRoutes],
+    routes: loginRoutes,
 });

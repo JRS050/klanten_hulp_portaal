@@ -12,8 +12,6 @@ Route::post('/auth',[AuthController::class, 'authenticate']);
 Route::delete('/logout',[AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('/register',[AuthController::class, 'register']);
 Route::post('/forgot-password',[AuthController::class, 'forgotPasswordRequest'])->middleware('guest');
-Route::get('/reset-password/{token}', function (string $token) {
-    return view('auth.reset-password', ['token' => $token]);
-})->middleware('guest')->name('password.reset');
 
+Route::post('/reset-password/{token}',[AuthController::class, 'forgotPasswordReset'])->middleware('guest');
 Route::get('/myTickets',[TicketController::class, 'index']);

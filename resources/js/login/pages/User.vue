@@ -31,6 +31,6 @@ const logout = async () =>{
 </script>
 <template>
   <button @click="fetchUserData">Fetch logged user data</button>
-      <p v-if="user">{{ user }}</p>
+      <p v-if="user">{{ user }}</p><br></br>
   <button @click="logout">Logout</button>
 </template>
