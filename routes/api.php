@@ -13,5 +13,5 @@ Route::delete('/logout',[AuthController::class, 'logout'])->middleware('auth:san
 Route::post('/register',[AuthController::class, 'register']);
 Route::post('/forgot-password',[AuthController::class, 'forgotPasswordRequest'])->middleware('guest');
 
-Route::post('/reset-password/{token}',[AuthController::class, 'forgotPasswordReset'])->middleware('guest');
+Route::post('/reset-password/token',[AuthController::class, 'forgotPasswordReset'])->middleware('guest');
 Route::get('/myTickets',[TicketController::class, 'index']);

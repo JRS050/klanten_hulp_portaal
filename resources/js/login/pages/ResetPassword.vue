@@ -16,7 +16,7 @@
     });
 
     const resetPassword = async () =>{
-        await postRequest(`/reset-password/$token`, form.value)
+        await postRequest(`/reset-password/token`, form.value)
         
         router.push({ name: 'login'});
     };
