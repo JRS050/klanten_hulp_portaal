@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        ResetPassword::createUrlUsing(function($notifiable, string $token) {
+        ResetPassword::createUrlUsing(function(string $token) {
             return 'http://127.0.0.1:8000/reset-password/'.$token;
         });
     }

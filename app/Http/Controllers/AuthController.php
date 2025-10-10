@@ -85,30 +85,47 @@ class AuthController extends Controller
             ? back()->with(['status' => __($status)])
             : back()->withErrors(['email' => __($status)]);
     }
-
+    /////////////////////////////////
     protected function broker()
     {
         return Password::broker();
     }
 
     public function forgotPasswordReset(Request $request){
-            $request->validate([
+        $request->validate([
             'token' => 'required',
             'password' => 'required|confirmed',
         ]);
 
-        $email = DB::table('password_reset_tokens')
-                    ->where('token', '=', $request->token)
-                    ->get();
-
-        $response = $this->broker()->reset(
-            $request->only('password', 'password_confirmation', 'token'),
-            function ($user, $password) {
-                $user->password = Hash::make($password);
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+      
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+    
                 $user->save();
+    
+                event(new PasswordReset($user));
             }
-        );
+    );
+        // dd($request->token);
+        // $token = Hash::make($request->token);
 
+        // $email = DB::table('password_reset_tokens')
+        //     ->where('token', '=', $token)
+        //     ->value('email');
+
+        // dd($email);
+        // $response = $this->broker()->reset(
+        //     $request->only('password', 'password_confirmation', 'token'),
+        //     function ($user, $password) {
+        //         $user->password = Hash::make($password);
+        //         $user->save();
+        //     }
+        // );
+        /////////////////////////////
         if ($response == Password::PASSWORD_RESET) {
             return response()->json(['message' => 'Password has been reset.']);
         }
