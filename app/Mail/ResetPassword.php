@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -17,10 +18,10 @@ class ResetPassword extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(protected User $user,)
     {
         //
-    }
+    }   
 
     /**
      * Get the message envelope.
@@ -40,6 +41,9 @@ class ResetPassword extends Mailable
     {
         return new Content(
             view: 'mail.password-reset',
+            with: [
+                'token'=> $this->user->reset_token,
+            ],
         );
     }
 

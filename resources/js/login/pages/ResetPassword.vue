@@ -24,6 +24,7 @@
 <template>
     <errorMessage/>
     <form @submit.prevent="resetPassword">
+
         <label for="password">New Password:</label>
         <input type="password" name="password" v-model="form.password" required>
       
