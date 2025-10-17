@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import {  ref } from 'vue';
-import { deleteRequest, getRequest } from '../../services/http';
-import { useRouter } from 'vue-router';
+import { getRequest } from '../../services/http';
+import Logout from '../../components/Logout.vue';
 
 const user = ref();
 const error = ref();
-
-const router = useRouter();
 
 const fetchUserData = async () => {
   try {
@@ -21,16 +19,9 @@ const fetchUserData = async () => {
   }
 };
 
-
-const logout = async () =>{
-  await deleteRequest('/logout');
-
-  router.push({ name: 'login'});
-}
-
 </script>
 <template>
   <button @click="fetchUserData">Fetch logged user data</button>
       <p v-if="user">{{ user }}</p><br></br>
-  <button @click="logout">Logout</button>
+  <Logout/>
 </template>

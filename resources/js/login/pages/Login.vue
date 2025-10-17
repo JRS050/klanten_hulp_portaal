@@ -17,7 +17,7 @@ const login = async () =>{
 
     await postRequest('/auth', form.value)
     
-    router.push({ name: 'me'});
+    router.push({ name: 'myTickets'});
 };
 
 </script>

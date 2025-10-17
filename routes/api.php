@@ -14,4 +14,4 @@ Route::post('/register',[AuthController::class, 'register']);
 Route::post('/forgot-password',[AuthController::class, 'forgotPasswordRequest'])->middleware('guest');
 
 Route::post('/reset-password/token',[AuthController::class, 'forgotPasswordReset'])->middleware('guest');
-Route::get('/myTickets',[TicketController::class, 'index']);
+Route::get('/tickets',[TicketController::class, 'index'])->middleware('auth:sanctum');

@@ -104,22 +104,3 @@ class AuthController extends Controller
         return response()->json(['error' => 'Failed to reset password.'], 400);
     }
 }
-
-
-
-        // dd($request->token);
-        // $token = Hash::make($request->token);
-
-        // $email = DB::table('password_reset_tokens')
-        //     ->where('token', '=', $token)
-        //     ->value('email');
-
-        // dd($email);
-        // $response = $this->broker()->reset(
-        //     $request->only('password', 'password_confirmation', 'token'),
-        //     function ($user, $password) {
-        //         $user->password = Hash::make($password);
-        //         $user->save();
-        //     }
-        // );
-        /////////////////////////////
