@@ -7,11 +7,18 @@ use App\Http\Resources\TicketResource;
 use App\Models\Ticket;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
     public function index(){
-        return TicketResource::collection(Ticket::all());
+        $user = Auth::user();
+        if($user->admin_status == 1){
+            return TicketResource::collection(Ticket::all()->sortBy('created_at'));
+        } else {
+            return TicketResource::collection(Ticket::query()->where('user_id', $user->id)->get()->sortBy('created_at'));
+        }
+        
     }
 
     public function store(StoreTicketRequest $request) {
