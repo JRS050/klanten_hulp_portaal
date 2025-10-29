@@ -7,7 +7,9 @@ import Navigation from '../../../components/Navigation.vue';
 
     ticketStore.actions.getAll();
     const tickets = ticketStore.getters.all;
-
+    const deleteTicket = async (id) => {
+        await ticketStore.actions.delete(id);
+    }
 
 </script>
 <template>
@@ -43,6 +45,11 @@ import Navigation from '../../../components/Navigation.vue';
                 <td>{{ ticket.created_at }}</td>
                 <td>{{ ticket.updated_at }}</td>
                 <td>{{ ticket.assigned_to }}</td>
+                <td>
+                    <RouterLink :to="{name:'editTicket', params:{id: ticket.id}}">Edit</RouterLink><br>
+                    <RouterLink :to="{name:'ticketInfo', params:{id: ticket.id}}">More Info</RouterLink><br>
+                    <button @click="deleteTicket(ticket.id)">Delete</button>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -23,7 +23,9 @@ class TicketController extends Controller
 
     public function store(StoreTicketRequest $request) {
         $ticket = Ticket::create($request->validated());
-
+        $user = Auth::user();
+        $ticket->user_id = $user->id;
+        $ticket->save();
         $tickets = Ticket::all();
         return TicketResource::collection($tickets);
     }
@@ -37,6 +39,6 @@ class TicketController extends Controller
 
     public function destroy(Ticket $ticket) {
         $ticket->delete();
-        return response()->json(['message' => 'Auteur succesvol verwijderd']);
+        return response()->json(['message' => 'Ticket succesfully deleted']);
     }
 }

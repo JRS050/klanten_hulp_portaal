@@ -9,7 +9,7 @@
 
     const addTicket = async (data) => {
         await ticketStore.actions.create(data);
-        router.push({name: 'books.overview'});
+        router.push({name: 'tickets.overview'});
     };
 
     const ticket = ref({
