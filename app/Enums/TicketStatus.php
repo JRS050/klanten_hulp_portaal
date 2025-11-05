@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Enums;
 
 enum TicketStatus:string
 {
-    case Pending = 'Pending';
-    case UnderReview = 'Under Review';
-    case Resolved = 'Resolved';
+    case PENDING = 'Pending';
+    case UNDER_REVIEW = 'Under Review';
+    case RESOLVED = 'Resolved';
 }

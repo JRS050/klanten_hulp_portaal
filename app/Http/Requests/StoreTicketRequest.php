@@ -22,8 +22,10 @@ class StoreTicketRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string',
-            'body' => 'required|string',
+            'title' => 'sometimes|required|string',
+            'body' => 'sometimes|required|string',
+            'status' => 'sometimes|required|string',
+            'assigned_to' => 'sometimes|nullable|integer',
         ];
     }
 }
