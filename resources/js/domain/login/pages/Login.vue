@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import errorMessage from '../../services/error/errorMessage.vue';
-import { getRequest, postRequest } from '../../services/http';
+    import { ref } from 'vue';
+    import { useRouter } from 'vue-router';
+    import { getRequest, postRequest } from '../../../services/http';
+    import errorMessage from '../../../services/error/errorMessage.vue';
 
-const router = useRouter();
+    const router = useRouter();
 
-const form = ref({
-    email:'',
-    password:''
-});
+    const form = ref({
+        email:'',
+        password:''
+    });
 
 
-const login = async () =>{
-    await getRequest('/sanctum/csrf-cookie')
+    const login = async () =>{
+        await getRequest('/sanctum/csrf-cookie')
 
-    await postRequest('/auth', form.value)
-    
-    router.push({ name: 'myTickets'});
-};
+        await postRequest('/auth', form.value)
+        
+        router.push({ name: 'myTickets'});
+    };
 
 </script>
 

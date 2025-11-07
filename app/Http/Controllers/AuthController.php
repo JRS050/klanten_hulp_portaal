@@ -54,6 +54,12 @@ class AuthController extends Controller
         ]);
     }
 
+    public function adminList(){
+        $admin_list = User::where('admin_status',1)->get();
+        dd($admin_list);
+        return response()->json();
+    }
+
     public function register(Request $request){
         $credentials = $request->validate([
             'name' => ['required'],

@@ -1,8 +1,8 @@
 <script setup lang="ts">
     import { ref } from 'vue';
     import { useRouter } from 'vue-router';
-    import { postRequest } from '../../services/http';
-    import errorMessage from '../../services/error/errorMessage.vue';
+    import { postRequest } from '../../../services/http';
+    import errorMessage from '../../../services/error/errorMessage.vue';
 
     const router = useRouter();
 

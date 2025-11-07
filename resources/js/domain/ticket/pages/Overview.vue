@@ -2,34 +2,13 @@
     import { ticketStore } from '../store';
     import errorMessage from '../../../services/error/errorMessage.vue';
     import Logout from '../../../components/Logout.vue';
-    import { computed, ref } from 'vue';
-import Navigation from '../../../components/Navigation.vue';
-import { getRequest } from '../../../services/http';
+    import Navigation from '../../../components/Navigation.vue';
 
     ticketStore.actions.getAll();
     const tickets = ticketStore.getters.all;
     const deleteTicket = async (id) => {
         await ticketStore.actions.delete(id);
     }
-
-    const user = ref();
-    const error = ref();
-    const form = ref();
-
-    const fetchUserData = async () => {
-        try {
-            const response = await getRequest('/me');
-            user.value = response.data;
-            console.log('User Data:', response.data);
-        return response.data;
-   
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-            return error;
-        }
-    };
-
-    fetchUserData()
 
 </script>
 <template>
@@ -69,12 +48,6 @@ import { getRequest } from '../../../services/http';
                     <RouterLink :to="{name:'editTicket', params:{id: ticket.id}}">Edit</RouterLink><br>
                     <RouterLink :to="{name:'ticketInfo', params:{id: ticket.id}}">More Info</RouterLink><br>
                     <button @click="deleteTicket(ticket.id)">Delete</button>
-                </td>
-                <td v-if="user.admin_status === 1">
-                    <form @submit.prevent="assignAdmin(ticket.id)">
-
-                        <button type="submit">Assign</button>
-                    </form>
                 </td>
             </tr>
         </tbody>

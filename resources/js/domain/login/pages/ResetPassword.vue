@@ -1,8 +1,8 @@
 <script setup lang="ts">
     import { ref } from 'vue';
     import { useRouter, useRoute } from 'vue-router';
-    import { postRequest } from '../../services/http';
-    import errorMessage from '../../services/error/errorMessage.vue';
+    import { postRequest } from '../../../services/http';
+    import ErrorMessage from '../../../services/error/errorMessage.vue';
 
     const router = useRouter();
     const route = useRoute();
@@ -22,7 +22,7 @@
     };
 </script>
 <template>
-    <errorMessage/>
+    <ErrorMessage/>
     <form @submit.prevent="resetPassword">
 
         <label for="password">New Password:</label>

@@ -17,6 +17,7 @@ export const storeModuleFactory = (moduleName) => {
         deleteByItem: (item) => {
             delete state.value[item.id];
         }
+        //add setter for admin assignment
     };
 
     const actions = {
