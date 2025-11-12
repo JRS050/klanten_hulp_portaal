@@ -56,8 +56,9 @@ class AuthController extends Controller
 
     public function adminList(){
         $admin_list = User::where('admin_status',1)->get();
-        dd($admin_list);
-        return response()->json();
+        return response()->json([
+            'admins' => $admin_list,
+        ]);
     }
 
     public function register(Request $request){
