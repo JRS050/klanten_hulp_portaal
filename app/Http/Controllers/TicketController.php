@@ -45,6 +45,15 @@ class TicketController extends Controller
         return TicketResource::collection($tickets);
     }   
 
+    public function updateStatus(Request $request, Ticket $ticket) {
+        //  dd($request->all());
+        $ticket->status = $request->input(0);
+        $ticket->save();
+
+        $tickets = Ticket::all();
+        return TicketResource::collection($tickets);
+    }
+
     public function destroy(Ticket $ticket) {
         $ticket->delete();
         return response()->json(['message' => 'Ticket succesfully deleted']);

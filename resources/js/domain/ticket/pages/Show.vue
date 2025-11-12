@@ -5,7 +5,9 @@
     import { ticketStore } from '../store';
     import { useRoute, useRouter } from 'vue-router';
     import { getRequest, putRequest } from '../../../services/http';
+    import { Status } from '../status';
 
+    console.log(Status);
     const route = useRoute();
     ticketStore.actions.getAll();
 
@@ -48,10 +50,6 @@
     };
 
     fetchAdminList();
-    //assign admin to ticket
-    // const updateTicket = async (id,data) => {
-    //     await ticketStore.actions.update(id, data);
-    // };
 
     const assign = async (id,data) => {
         console.log('Assigning ticket with data:', data);
@@ -75,12 +73,19 @@
             <thead>
                 <tr>
                     <th>Title:{{ ticket.title }}</th>
-                    <th>Ticket Status: {{ ticket.status }}</th>
+                    <td v-if="user.admin_status === 1 && user.id === ticket.assigned_to">
+                        <form @submit.prevent="handleSubmit(assigned_to)">
+                            <select required name="status" id="status" v-model="ticket.status">
+                                <option v-for="status in Status" :value="Status">{{ ticket.status }}</option>
+                            </select>
+                            <button type="submit">Update Status</button>
+                        </form>
+                    </td>
+                    <td v-else>Ticket Status: {{ ticket.status }}</td>
                     <td v-if="user.admin_status === 1">
                         <form @submit.prevent="handleSubmit(assigned_to)">
                             <select required name="assigned_to" id="assigned_to" v-model="assigned_to">
                                 <option v-for="admin in admin_list" :value="admin.id">{{ admin.name }}</option>
-
                             </select>
                             <button type="submit">Assign</button>
                         </form>

@@ -20,3 +20,4 @@ Route::post('/tickets',[TicketController::class, 'store'])->middleware('auth:san
 Route::put('/tickets/{ticket}',[TicketController::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/tickets/{ticket}',[TicketController::class, 'destroy'])->middleware('auth:sanctum');
 Route::put('/tickets/{ticket}/assign',[TicketController::class, 'assign'])->middleware('auth:sanctum');
+Route::put('/tickets/{ticket}/status',[TicketController::class, 'updateStatus'])->middleware('auth:sanctum');
