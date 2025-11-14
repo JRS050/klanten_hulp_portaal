@@ -9,10 +9,13 @@
 
     console.log(Status);
     const route = useRoute();
+
+
     ticketStore.actions.getAll();
 
     const ticket = ticketStore.getters.getById(route.params.id);
     console.log(ticket.value);
+    console.log(route.params.data);
 
     const user = ref();
     const error = ref();

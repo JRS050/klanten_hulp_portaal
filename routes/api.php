@@ -16,6 +16,7 @@ Route::post('/reset-password/token',[AuthController::class, 'forgotPasswordReset
 Route::get('/admin-list',[AuthController::class, 'adminList'])->middleware('auth:sanctum');
 
 Route::get('/tickets',[TicketController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/tickets/show',[TicketController::class, 'show'])->middleware('auth:sanctum');
 Route::post('/tickets',[TicketController::class, 'store'])->middleware('auth:sanctum');
 Route::put('/tickets/{ticket}',[TicketController::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/tickets/{ticket}',[TicketController::class, 'destroy'])->middleware('auth:sanctum');
