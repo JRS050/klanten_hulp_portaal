@@ -50,7 +50,7 @@ class TicketController extends Controller
 
     public function assign(Request $request, Ticket $ticket) {
         //  dd($request->all());
-        $ticket->assigned_to = $request->input(0);
+        $ticket->assigned_to = $request->assigned_to;
         $ticket->save();
 
         $tickets = Ticket::all();
@@ -59,7 +59,7 @@ class TicketController extends Controller
 
     public function updateStatus(Request $request, Ticket $ticket) {
         //  dd($request->all());
-        $ticket->status = $request->input(0);
+        $ticket->status = $request->status;
         $ticket->save();
 
         $tickets = Ticket::all();

@@ -54,6 +54,15 @@ class AuthController extends Controller
         ]);
     }
 
+    public function adminAccess(){
+        $user = Auth::user();
+        if($user->admin_status == 1){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function adminList(){
         $admin_list = User::where('admin_status',1)->get();
         return response()->json([

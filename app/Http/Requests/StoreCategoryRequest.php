@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\BaseFormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTicketRequest extends BaseFormRequest
+class StoreCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,7 @@ class StoreTicketRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'title' => 'sometimes|required|string',
-            'body' => 'sometimes|required|string',
-            'status' => 'sometimes|required|enum::TicketStatus',
-            'assigned_to' => 'sometimes|nullable|integer',
+            //
         ];
     }
 }

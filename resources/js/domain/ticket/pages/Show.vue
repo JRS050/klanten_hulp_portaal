@@ -14,12 +14,11 @@
     ticketStore.actions.getAll();
 
     const ticket = ticketStore.getters.getById(route.params.id);
-    console.log(ticket.value);
-    console.log(route.params.data);
 
     const user = ref();
     const error = ref();
-    const assigned_to = ref(ticket.value.assigned_to);
+    const assigned_to = ref(0);
+    const ticketStatus = ref(0);
 
     const fetchUserData = async () => {
         try {
@@ -54,13 +53,12 @@
 
     fetchAdminList();
 
-    const assign = async (id,data) => {
-        console.log('Assigning ticket with data:', data);
-        await putRequest(`/tickets/${id}/assign`, data);
+    const assign = async () => {        
+        await putRequest(`/tickets/${route.params.id}/assign`, {assigned_to: assigned_to.value});
     };
 
-    const handleSubmit = async (data) => {
-        await assign(route.params.id, data);
+    const updateStatus = async () => {
+        await putRequest(`/tickets/${route.params.id}/status`, {status: ticketStatus.value});
     }
 
 </script>
@@ -76,17 +74,19 @@
             <thead>
                 <tr>
                     <th>Title:{{ ticket.title }}</th>
-                    <td v-if="user.admin_status === 1 && user.id === ticket.assigned_to">
-                        <form @submit.prevent="handleSubmit(assigned_to)">
-                            <select required name="status" id="status" v-model="ticket.status">
-                                <option v-for="status in Status" :value="Status">{{ ticket.status }}</option>
+
+                    <td>
+                        <form @submit.prevent="updateStatus">
+                            <select required name="status" id="status" v-model="ticketStatus">
+                                <option v-for="status in Status" :value="status">{{ status }}</option>
                             </select>
                             <button type="submit">Update Status</button>
                         </form>
                     </td>
-                    <td v-else>Ticket Status: {{ ticket.status }}</td>
-                    <td v-if="user.admin_status === 1">
-                        <form @submit.prevent="handleSubmit(assigned_to)">
+                    <!-- <td v-else>Ticket Status: {{ ticket.status }}</td> -->
+
+                    <td>
+                        <form @submit.prevent="assign">
                             <select required name="assigned_to" id="assigned_to" v-model="assigned_to">
                                 <option v-for="admin in admin_list" :value="admin.id">{{ admin.name }}</option>
                             </select>

@@ -12,13 +12,6 @@ import { useRouter } from 'vue-router';
     ticketStore.actions.getAll();
     const tickets = ticketStore.getters.all;
 
-    const ticketInfoData = ref();
-
-    const getTicketById = async (id) => {
-       const response = await getRequest('/tickets/show');
-       ticketInfoData.value = response.data;
-       router.push({name:'ticketInfo', params:{id: id, data: response.data }})
-    }
 
     const deleteTicket = async (id) => {
         await ticketStore.actions.delete(id);
@@ -61,7 +54,6 @@ import { useRouter } from 'vue-router';
                 <td>
                     <RouterLink :to="{name:'editTicket', params:{id: ticket.id}}">Edit</RouterLink><br>
                     <!-- Add json response from back end to route parameters below -->
-                     <button @click="getTicketById(ticket.id)">More Info Button</button>
                     <RouterLink :to="{name:'ticketInfo', params:{id: ticket.id}}">More Info</RouterLink><br>
                     <button @click="deleteTicket(ticket.id)">Delete</button>
                 </td>
