@@ -36,5 +36,7 @@ class Ticket extends Model
     protected $fillable = [
         'title',
         'body',
+        'assigned_to',
+        'status'
     ];
 };

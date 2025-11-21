@@ -6,10 +6,18 @@
     import { useRoute, useRouter } from 'vue-router';
     import { getRequest, putRequest } from '../../../services/http';
     import { Status } from '../status';
+import Form2 from '../components/Form2.vue';
+import AssignAdmin from '../components/AssignAdmin.vue';
+
+
+    const formPurpose = [
+        "Admin Update",
+    ]
 
     console.log(Status);
     const route = useRoute();
 
+    console.log(ticketStore);
 
     ticketStore.actions.getAll();
 
@@ -17,8 +25,6 @@
 
     const user = ref();
     const error = ref();
-    const assigned_to = ref(0);
-    const ticketStatus = ref(0);
 
     const fetchUserData = async () => {
         try {
@@ -33,32 +39,14 @@
         }
     };
 
-    fetchUserData()
+    fetchUserData();
 
-    //get list of admins
-    const admin_list = ref();
-
-    const fetchAdminList = async () => {
-        try {
-            const response = await getRequest('/admin-list');
-            admin_list.value = response.data.admins;
-            console.log('Admin List:', response.data);
-        return response.data;
-   
-        } catch (error) {
-            console.error('Error fetching admin list:', error);
-            return error;
-        }
+    const updateTicket = async (id,data) => {
+        await ticketStore.actions.update(id, data);
     };
 
-    fetchAdminList();
-
-    const assign = async () => {        
-        await putRequest(`/tickets/${route.params.id}/assign`, {assigned_to: assigned_to.value});
-    };
-
-    const updateStatus = async () => {
-        await putRequest(`/tickets/${route.params.id}/status`, {status: ticketStatus.value});
+    const handleSubmit = async (data) => {
+        await updateTicket(route.params.id, data);
     }
 
 </script>
@@ -70,28 +58,12 @@
     <Navigation/>
 
     <div>
-        <table>
+        <table v-if="ticket">
             <thead>
                 <tr>
                     <th>Title:{{ ticket.title }}</th>
-
                     <td>
-                        <form @submit.prevent="updateStatus">
-                            <select required name="status" id="status" v-model="ticketStatus">
-                                <option v-for="status in Status" :value="status">{{ status }}</option>
-                            </select>
-                            <button type="submit">Update Status</button>
-                        </form>
-                    </td>
-                    <!-- <td v-else>Ticket Status: {{ ticket.status }}</td> -->
-
-                    <td>
-                        <form @submit.prevent="assign">
-                            <select required name="assigned_to" id="assigned_to" v-model="assigned_to">
-                                <option v-for="admin in admin_list" :value="admin.id">{{ admin.name }}</option>
-                            </select>
-                            <button type="submit">Assign</button>
-                        </form>
+                        <Form2 :ticket="ticket" :purpose="formPurpose[0]" @submit="handleSubmit" />
                     </td>
                 </tr>
             </thead>

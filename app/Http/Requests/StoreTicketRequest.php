@@ -22,10 +22,10 @@ class StoreTicketRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'title' => 'sometimes|required|string',
-            'body' => 'sometimes|required|string',
-            'status' => 'sometimes|required|enum::TicketStatus',
-            'assigned_to' => 'sometimes|nullable|integer',
+            'title' => 'required|string',
+            'body' => 'required|string',
+            'status' => 'required',
+            'assigned_to' => 'nullable|integer',
         ];
     }
 }

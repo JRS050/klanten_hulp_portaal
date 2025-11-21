@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TicketController;
 
 Route::get('/me', [AuthController::class, 'me']
@@ -20,5 +21,5 @@ Route::get('/tickets/show',[TicketController::class, 'show'])->middleware('auth:
 Route::post('/tickets',[TicketController::class, 'store'])->middleware('auth:sanctum');
 Route::put('/tickets/{ticket}',[TicketController::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/tickets/{ticket}',[TicketController::class, 'destroy'])->middleware('auth:sanctum');
-Route::put('/tickets/{ticket}/assign',[TicketController::class, 'assign'])->middleware('auth:sanctum');
-Route::put('/tickets/{ticket}/status',[TicketController::class, 'updateStatus'])->middleware('auth:sanctum');
+
+Route::get('categories',[CategoryController::class, 'index'])->middleware('auth:sanctum');

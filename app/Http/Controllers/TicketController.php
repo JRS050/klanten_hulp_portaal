@@ -43,25 +43,8 @@ class TicketController extends Controller
     }
 
     public function update(StoreTicketRequest $request, Ticket $ticket) {
+        //dd($request->all());
         $ticket->update($request->validated());
-        $tickets = Ticket::all();
-        return TicketResource::collection($tickets);
-    }
-
-    public function assign(Request $request, Ticket $ticket) {
-        //  dd($request->all());
-        $ticket->assigned_to = $request->assigned_to;
-        $ticket->save();
-
-        $tickets = Ticket::all();
-        return TicketResource::collection($tickets);
-    }   
-
-    public function updateStatus(Request $request, Ticket $ticket) {
-        //  dd($request->all());
-        $ticket->status = $request->status;
-        $ticket->save();
-
         $tickets = Ticket::all();
         return TicketResource::collection($tickets);
     }
