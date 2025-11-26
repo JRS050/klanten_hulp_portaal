@@ -2,9 +2,14 @@
     import { useRoute, useRouter } from 'vue-router';
     import Form from '../components/Form.vue';
     import { ticketStore } from '../store';
+import Navigation from '../../../components/Navigation.vue';
 
     const route = useRoute();
     const router = useRouter();
+
+    const formPurpose = [
+        "TicketEdit",
+    ]
 
     const ticket = ticketStore.getters.getById(route.params.id);
 
@@ -19,6 +24,8 @@
 </script>
 
 <template>
+
+        <Navigation/>
     <h2>Ticket bewerken</h2>
     <Form v-if="ticket" :ticket="ticket" @submit="handleSubmit" />
 </template>

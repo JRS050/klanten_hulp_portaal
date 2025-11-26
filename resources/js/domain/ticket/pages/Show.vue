@@ -3,11 +3,10 @@
     import Logout from '../../../components/Logout.vue';
     import Navigation from '../../../components/Navigation.vue';
     import { ticketStore } from '../store';
-    import { useRoute, useRouter } from 'vue-router';
-    import { getRequest, putRequest } from '../../../services/http';
+    import { useRoute } from 'vue-router';
+    import { getRequest } from '../../../services/http';
     import { Status } from '../status';
-import Form2 from '../components/Form2.vue';
-import AssignAdmin from '../components/AssignAdmin.vue';
+    import Form2 from '../components/Form2.vue';
 
 
     const formPurpose = [

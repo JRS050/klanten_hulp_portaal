@@ -3,14 +3,13 @@
     import errorMessage from '../../../services/error/errorMessage.vue';
     import Logout from '../../../components/Logout.vue';
     import Navigation from '../../../components/Navigation.vue';
-import { getRequest } from '../../../services/http';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-    const router = useRouter();
+import { categoryStore } from '../../categories/store';
 
     ticketStore.actions.getAll();
     const tickets = ticketStore.getters.all;
+
+    categoryStore.actions.getAll();
+    const categories = categoryStore.getters.all;
 
 
     const deleteTicket = async (id) => {

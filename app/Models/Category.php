@@ -10,4 +10,8 @@ class Category extends Model
     public function ticket(): BelongsToMany{
         return $this->belongsToMany(Ticket::class);
     }
+
+    protected $fillable = [
+        'title',
+    ]; 
 }

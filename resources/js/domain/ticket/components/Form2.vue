@@ -3,20 +3,25 @@
     import  errorMessage from '../../../services/error/errorMessage.vue';
     import FormError from '../../../services/error/FormError.vue';
     import { Status } from '../status';
-import { getRequest } from '../../../services/http';
+    import { getRequest } from '../../../services/http';
+    import { categoryStore } from '../../categories/store';
 
     const admin_list = ref();
+    const categories = categoryStore.getters.all;
+    console.log(categories);
 
     const props = defineProps({ 
         ticket: Object ,
         purpose : String,
     });
 
-    //purposes: Ticket Edit => Title and description enabled
-    //          Assign Admin => Admin selection enabled
-    //          Update Status => Status selection enabled
+    //purposes: TicketEdit => Title and description enabled
+    //          AAdmin Update => Admin and status selection enabled
 
-    const form = ref({ ...props.ticket });
+
+    const form = ref({ ...props.ticket});
+
+    console.log(form.value);
 
     const fetchAdminList = async () => {
         try {
@@ -45,12 +50,17 @@ import { getRequest } from '../../../services/http';
     <errorMessage />
 
     <form @submit.prevent="handleSubmit">
-        <div v-if="purpose === 'Ticket Edit'">
+        <div v-if="purpose === 'TicketEdit'">
             <p>Title</p>
             <input v-model="form.title" type="text"></input>
             <br>
             <p>Description</p>
             <textarea v-model="form.body"></textarea>
+            <br>
+            <p>Category</p>
+            <select v-model="form.category_id">
+                <option v-for="category in categories" :value="category.id">{{ category.title }}</option>
+            </select>
             <br>
         </div>
 

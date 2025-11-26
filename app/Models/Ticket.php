@@ -29,8 +29,8 @@ class Ticket extends Model
         return $this->hasMany(Answer::class);
     }
 
-    public function category(): BelongsToMany{
-        return $this->belongsToMany(Ticket::class);
+    public function categories(): BelongsToMany{
+        return $this->belongsToMany(Category::class);
     }
 
     protected $fillable = [

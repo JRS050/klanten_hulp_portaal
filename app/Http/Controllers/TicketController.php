@@ -37,6 +37,7 @@ class TicketController extends Controller
         $ticket = Ticket::create($request->validated());
         $user = Auth::user();
         $ticket->user_id = $user->id;
+        $ticket->category_id = $request->category_id;
         $ticket->save();
         $tickets = Ticket::all();
         return TicketResource::collection($tickets);
@@ -45,6 +46,7 @@ class TicketController extends Controller
     public function update(StoreTicketRequest $request, Ticket $ticket) {
         //dd($request->all());
         $ticket->update($request->validated());
+        $ticket->categories()->attach($request->validated(['category_id']));
         $tickets = Ticket::all();
         return TicketResource::collection($tickets);
     }

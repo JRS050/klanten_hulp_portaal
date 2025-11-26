@@ -2,14 +2,18 @@
     import { ref } from 'vue';
     import  errorMessage from '../../../services/error/errorMessage.vue';
     import FormError from '../../../services/error/FormError.vue';
+import { categoryStore } from '../../categories/store';
 
-    
+    categoryStore.actions.getAll();
+    const categories = categoryStore.getters.all;
 
     const props = defineProps({ ticket: Object });
 
+    const category_id = ref('');
+
     const emit = defineEmits(['submit']);
 
-    const form = ref({ ...props.ticket });
+    const form = ref({ ...props.ticket, category_id});
 
     const handleSubmit = () => emit('submit', form.value);
 </script>
@@ -25,7 +29,12 @@
         <br>
         <p>Description</p>
         <textarea v-model="form.body" ></textarea>
-
+        <br>
+        <p v-if="categories">Category</p>
+            <select v-model="form.category_id">
+                <option v-for="category in categories" :value="category.id">{{ category.title }}</option>
+            </select>
+            <br>
         <button type="submit">Post ticket</button>
     </form>
 </template>

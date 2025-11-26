@@ -26,6 +26,7 @@ class StoreTicketRequest extends BaseFormRequest
             'body' => 'required|string',
             'status' => 'required',
             'assigned_to' => 'nullable|integer',
+            'category_id' => 'required|integer',
         ];
     }
 }

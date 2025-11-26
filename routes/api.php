@@ -23,3 +23,6 @@ Route::put('/tickets/{ticket}',[TicketController::class, 'update'])->middleware(
 Route::delete('/tickets/{ticket}',[TicketController::class, 'destroy'])->middleware('auth:sanctum');
 
 Route::get('categories',[CategoryController::class, 'index'])->middleware('auth:sanctum');
+Route::post('categories',[CategoryController::class, 'store'])->middleware('auth:sanctum');
+Route::put('categories/{category}',[CategoryController::class, 'update'])->middleware('auth:sanctum');
+Route::delete('categories/{category}',[CategoryController::class, 'destroy'])->middleware('auth:sanctum');
