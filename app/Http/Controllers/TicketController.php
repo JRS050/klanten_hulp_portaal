@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTicketRequest;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\TicketResource;
+use App\Models\Category;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -19,6 +21,13 @@ class TicketController extends Controller
         } else {
             return TicketResource::collection(Ticket::query()->where('user_id', $user->id)->get()->sortBy('created_at'));
         }
+        
+    }
+
+    public function alt_index(){
+        $user = Auth::user();
+        $tickets = TicketResource::collection(Ticket::all());
+        $categories = CategoryResource::collection(Category::all());
         
     }
 
