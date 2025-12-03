@@ -20,10 +20,11 @@ class TicketResource extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'user_id' => $this->user_id,
+            'status' => $this->status,
             'assigned_to' => $this->assigned_to,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'categories' => CategoryResource::collection($this->categories),
+            'category_ids' => $this->categories->pluck('id'),
         ];
     }
 }

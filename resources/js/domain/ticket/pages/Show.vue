@@ -7,7 +7,10 @@
     import { getRequest } from '../../../services/http';
     import { Status } from '../status';
     import Form2 from '../components/Form2.vue';
+    import { categoryStore } from '../../categories/store';
 
+
+    categoryStore.actions.getAll();
 
     const formPurpose = [
         "Admin Update",
@@ -61,6 +64,11 @@
             <thead>
                 <tr>
                     <th>Title:{{ ticket.title }}</th>
+                    <th>
+                        Categories:{{ categoryStore.getters.getByIds(ticket.category_ids).value.map(c => c.title).join(', ') }}
+                        <br></br>
+                        Status:{{ ticket.status }}
+                    </th>
                     <td>
                         <Form2 :ticket="ticket" :purpose="formPurpose[0]" @submit="handleSubmit" />
                     </td>
@@ -72,5 +80,9 @@
                 </td>
             </tr>
         </table>
+    </div>
+    <!-- Answers section -->
+    <div>
+
     </div>
 </template>

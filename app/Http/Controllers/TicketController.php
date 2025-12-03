@@ -55,7 +55,10 @@ class TicketController extends Controller
     public function update(StoreTicketRequest $request, Ticket $ticket) {
         //dd($request->all());
         $ticket->update($request->validated());
-        $ticket->categories()->attach($request->validated(['category_id']));
+        if($request->has('category_id')){
+            $ticket->categories()->detach();
+            $ticket->categories()->attach($request->validated(['category_id']));
+        };
         $tickets = Ticket::all();
         return TicketResource::collection($tickets);
     }

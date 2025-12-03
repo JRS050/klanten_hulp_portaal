@@ -3,8 +3,7 @@
     import errorMessage from '../../../services/error/errorMessage.vue';
     import Logout from '../../../components/Logout.vue';
     import Navigation from '../../../components/Navigation.vue';
-import { categoryStore } from '../../categories/store';
-import { ref } from 'vue';
+    import { categoryStore } from '../../categories/store';
 
     ticketStore.actions.getAll();
     const tickets = ticketStore.getters.all;
@@ -12,13 +11,9 @@ import { ref } from 'vue';
     console.log(tickets.value);
 
     categoryStore.actions.getAll();
-    const categories = categoryStore.getters.all;
 
-    const ticketsWithCategories = ref();
+    console.log(categoryStore.getters.getByIds(tickets.value.map(t => t.category_ids)).value);
 
-    const assignCategoriesToTickets = async() =>{
-        
-    }
 
     const deleteTicket = async (id) => {
         await ticketStore.actions.delete(id);
@@ -54,7 +49,9 @@ import { ref } from 'vue';
                 <td>{{ ticket.id }}</td>
                 <td>{{ ticket.title }}</td>
                 <td>{{ ticket.body }}</td>
-                <td>Placeholder</td>
+                <td>
+                    {{ categoryStore.getters.getByIds(ticket.category_ids).value.map(c => c.title).join(', ') }}    
+                </td>
                 <td>{{ ticket.status }}</td>
                 <td>{{ ticket.user_id }}</td>
                 <td>{{ ticket.created_at }}</td>

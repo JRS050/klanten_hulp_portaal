@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\BaseFormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTicketRequest extends BaseFormRequest
+class StoreAnswerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,11 +22,7 @@ class StoreTicketRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string',
-            'body' => 'required|string',
-            'status' => 'sometimes|required',
-            'assigned_to' => 'nullable|integer',
-            'category_id' => 'sometimes|required|array',
+            //
         ];
     }
 }
