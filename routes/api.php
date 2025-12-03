@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -26,3 +27,8 @@ Route::get('categories',[CategoryController::class, 'index'])->middleware('auth:
 Route::post('categories',[CategoryController::class, 'store'])->middleware('auth:sanctum');
 Route::put('categories/{category}',[CategoryController::class, 'update'])->middleware('auth:sanctum');
 Route::delete('categories/{category}',[CategoryController::class, 'destroy'])->middleware('auth:sanctum');
+
+Route::get('/answers',[AnswerController::class, 'index'])->middleware('auth:sanctum');
+Route::post('/answers',[AnswerController::class, 'store'])->middleware('auth:sanctum');
+Route::put('/answers/{answer}',[AnswerController::class, 'update'])->middleware('auth:sanctum');
+Route::delete('/answers/{answer}',[AnswerController::class, 'destroy'])->middleware('auth:sanctum');

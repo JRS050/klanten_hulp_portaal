@@ -16,8 +16,6 @@
 
     <Navigation/>
 
-    <RouterLink :to="{name: 'newCategory'}">New Category</RouterLink>
-
     <h2>Categories overview</h2>
     <div>
         <table>

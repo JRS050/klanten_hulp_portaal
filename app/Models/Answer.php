@@ -18,6 +18,5 @@ class Answer extends Model
     protected $fillable = [
         'body',
         'ticket_id',
-        'user_id'
     ];
 }
