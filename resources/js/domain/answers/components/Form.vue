@@ -15,6 +15,7 @@
         <p>Body</p>
         <textarea v-model="form.body"></textarea>
         <br>
+        <input type="hidden" v-model="form.ticket_id" />
         <button type="submit">Post Answer</button>
     </form>
 </template>

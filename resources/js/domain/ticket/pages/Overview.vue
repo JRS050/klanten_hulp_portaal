@@ -8,12 +8,7 @@
     ticketStore.actions.getAll();
     const tickets = ticketStore.getters.all;
 
-    console.log(tickets.value);
-
     categoryStore.actions.getAll();
-
-    console.log(categoryStore.getters.getByIds(tickets.value.map(t => t.category_ids)).value);
-
 
     const deleteTicket = async (id) => {
         await ticketStore.actions.delete(id);

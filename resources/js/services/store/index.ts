@@ -6,7 +6,10 @@ export const storeModuleFactory = (moduleName) => {
 
     const getters = {
         all: computed(() => Object.values(state.value)),
-        getById: (id) => computed(() => state.value[id]),
+        getById: (id) => computed(() => {
+            // console.log(id);
+            return state.value[id];
+        }),
         getByIds: (ids) => computed(() => Object.values(state.value).filter(item => ids.includes(item.id))),
     };
 

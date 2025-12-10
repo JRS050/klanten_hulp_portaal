@@ -16,7 +16,7 @@
     });
 
     //purposes: TicketEdit => Title and description enabled
-    //          AAdmin Update => Admin and status selection enabled
+    //          Admin Update => Admin and status selection enabled
 
 
     const form = ref({ ...props.ticket});

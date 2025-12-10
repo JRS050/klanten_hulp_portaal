@@ -22,7 +22,8 @@ class StoreAnswerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'body' => 'required|string',
+            'ticket_id' => 'required|exists:tickets,id',
         ];
     }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { computed, onMounted, ref } from 'vue';
+    import { ref } from 'vue';
     import Logout from '../../../components/Logout.vue';
     import Navigation from '../../../components/Navigation.vue';
     import { ticketStore } from '../store';
@@ -9,22 +9,23 @@
     import Form2 from '../components/Form2.vue';
     import Form from '../../answers/components/Form.vue';
     import { categoryStore } from '../../categories/store';
-    import { answerStore } from '../../answers/store';
-    import errorMessage from '../../../services/error/errorMessage.vue';
+import { answerStore } from '../../answers/store';
 
-    ticketStore.actions.getAll();
+
     categoryStore.actions.getAll();
-    answerStore.actions.getAll();
-    
 
     const formPurpose = [
         "Admin Update",
     ]
+
+    console.log(Status);
     const route = useRoute();
 
-    const ticket = ticketStore.getters.getById(route.params.id);
+    console.log(ticketStore);
 
-    const answers = answerStore.getters.getByIds(ticket.value.answers_ids);
+    ticketStore.actions.getAll();
+
+    const ticket = ticketStore.getters.getById(route.params.id);
 
     const user = ref();
     const error = ref();
@@ -52,6 +53,10 @@
         await updateTicket(route.params.id, data);
     }
 
+    answerStore.actions.getAll();
+
+    const answers = answerStore.getters.getByIds(ticket.value.answers_ids);
+
     const answer = ref({
         body: '',
         ticket_id: route.params.id,
@@ -63,10 +68,6 @@
         answer.value.body = '';
     };
 
-    const handleSubmitAnswer = async (data) => {
-        await postAnswer(data);
-    };
-
 </script>
 <template>
 
@@ -74,8 +75,6 @@
     <Logout/>
 
     <Navigation/>
-
-    <errorMessage/>
 
     <div>
         <table v-if="ticket">
@@ -103,10 +102,10 @@
     <!-- Answers section -->
     <div>
         <h3>Post an answer</h3>
-        <Form :answer="answer" @submit="handleSubmitAnswer"/>
+        <Form :answer="answer" @submit="postAnswer"/>
     </div>
     <div>
-        <table v-if="answers.length > 0">
+        <table v-if="answers.length">
             <thead>
                 <tr>
                     <th>Answers</th>
