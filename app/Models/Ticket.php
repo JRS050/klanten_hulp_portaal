@@ -37,6 +37,7 @@ class Ticket extends Model
         'title',
         'body',
         'assigned_to',
-        'status'
+        'status',
+        'user_id'
     ];
 };

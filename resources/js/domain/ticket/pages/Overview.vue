@@ -4,6 +4,7 @@
     import Logout from '../../../components/Logout.vue';
     import Navigation from '../../../components/Navigation.vue';
     import { categoryStore } from '../../categories/store';
+import AdminNavigation from '../../../components/AdminNavigation.vue';
 
     ticketStore.actions.getAll();
     const tickets = ticketStore.getters.all;
@@ -20,6 +21,8 @@
     <Logout/>
 
     <Navigation/>
+
+    <AdminNavigation/>
 
     <h2>Own tickets overview</h2>
 
