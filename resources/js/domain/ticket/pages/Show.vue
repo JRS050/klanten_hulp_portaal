@@ -11,10 +11,13 @@
     import { categoryStore } from '../../categories/store';
     import { answerStore } from '../../answers/store';
     import errorMessage from '../../../services/error/errorMessage.vue';
+    import { noteStore } from '../../notes/store';
+    import NotesForm from '../../notes/components/NotesForm.vue';
 
     ticketStore.actions.getAll();
     categoryStore.actions.getAll();
     answerStore.actions.getAll();
+    noteStore.actions.getAll();
     
 
     const formPurpose = [
@@ -52,6 +55,8 @@
         await updateTicket(route.params.id, data);
     }
 
+    //Answer logic
+
     const answer = ref({
         body: '',
         ticket_id: route.params.id,
@@ -59,12 +64,36 @@
 
     const postAnswer = async (data) => {
         await answerStore.actions.create(data);
-        // Clear the form after submission
         answer.value.body = '';
     };
 
     const handleSubmitAnswer = async (data) => {
         await postAnswer(data);
+    };
+
+    //Notes logic
+
+    const notes = noteStore.getters.getByIds(ticket.value.notes_ids);
+
+    const note = ref({
+        body: '',
+        ticket_id: route.params.id,
+    });
+
+    const postNote = async (data) => {
+        await noteStore.actions.create(data);
+        note.value = {
+        body: '',
+        ticket_id: route.params.id,
+    }
+    };
+
+    const handleSubmitNote = async (data) => {
+        await postNote(data);
+    };
+
+    const deleteNote = async (id) => {
+        await noteStore.actions.delete(id);
     };
 
 </script>
@@ -115,6 +144,26 @@
             <tbody>
                 <tr v-for="answer in answers" :key="answer.id">
                     <td>{{ answer.body }}</td>
+                    <td><RouterLink :to="{name:'editAnswer', params:{id: answer.id}}">Edit</RouterLink></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Notes section -->
+    <div>
+        <h3>Notes</h3>
+        <NotesForm :note="note" @submit="handleSubmitNote"/>
+        <table v-if="notes.length > 0">
+            <thead>
+                <tr>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="note in notes" :key="note.id">
+                    <td>{{ note.body }}</td>
+                    <td><RouterLink :to="{name:'editNote', params:{id: note.id}}">Edit</RouterLink></td>
+                    <td><button @click="deleteNote(note.id)">Delete</button></td>
                 </tr>
             </tbody>
         </table>

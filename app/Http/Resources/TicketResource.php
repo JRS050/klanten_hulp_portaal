@@ -26,6 +26,7 @@ class TicketResource extends JsonResource
             'updated_at' => $this->updated_at,
             'category_ids' => $this->categories->pluck('id'),
             'answers_ids' => $this->answers->pluck('id'),
+            'notes_ids' => $this->notes->pluck('id'),
         ];
     }
 }

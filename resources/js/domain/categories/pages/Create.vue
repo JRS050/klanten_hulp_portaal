@@ -4,6 +4,7 @@
     import { useRouter } from 'vue-router';
     import { ref } from 'vue';
     import Navigation from '../../../components/Navigation.vue';
+import AdminNavigation from '../../../components/AdminNavigation.vue';
 
     const router = useRouter();
 
@@ -23,7 +24,7 @@
 </script>
 <template>
     <Navigation/>
-
+    <AdminNavigation/>
     <h2>New category</h2>
     <Form :category="category" @submit="handleSubmit"/>
 </template>

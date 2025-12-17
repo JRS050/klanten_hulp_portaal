@@ -20,7 +20,7 @@ class AnswerController extends Controller
     public function store(StoreAnswerRequest $request){
         $answer = Answer::create($request->validated());
         $answers = Answer::all();
-        $user_id = Ticket::where('ticket_id', $request->ticket_id)->pluck('user_id');
+        $user_id = Ticket::where('id', $request->ticket_id)->pluck('user_id');
         $user = User::where('id', $user_id)->first();
         Mail::to($user)->send(new NewAnswer);
         return AnswerResource::collection($answers);
@@ -29,7 +29,7 @@ class AnswerController extends Controller
     public function update(StoreAnswerRequest $request, Answer $answer){
         $answer->update($request->validated());
         $answers = Answer::all();
-        $user_id = Ticket::where('ticket_id', $request->ticket_id)->pluck('user_id');
+        $user_id = Ticket::where('id', $request->ticket_id)->pluck('user_id');
         $user = User::where('id', $user_id)->first();
         Mail::to($user)->send(new NewAnswer);
         return AnswerResource::collection($answers);

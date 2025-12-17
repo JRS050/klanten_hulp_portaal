@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\NoteController;
 
 Route::get('/me', [AuthController::class, 'me']
 )->middleware('auth:sanctum');
@@ -32,3 +33,10 @@ Route::get('/answers',[AnswerController::class, 'index'])->middleware('auth:sanc
 Route::post('/answers',[AnswerController::class, 'store'])->middleware('auth:sanctum');
 Route::put('/answers/{answer}',[AnswerController::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/answers/{answer}',[AnswerController::class, 'destroy'])->middleware('auth:sanctum');
+
+// Note routes
+Route::get('/notes',[NoteController::class, 'index'])->middleware('auth:sanctum');
+Route::post('/notes',[NoteController::class, 'store'])->middleware('auth:sanctum');
+Route::put('/notes/{note}',[NoteController::class, 'update'])->middleware('auth:sanctum');
+Route::delete('/notes/{note}',[NoteController::class, 'destroy'])->middleware('auth:sanctum');
+

@@ -3,6 +3,7 @@
     import Form from '../components/Form.vue';
     import { categoryStore } from '../store';
 import Navigation from '../../../components/Navigation.vue';
+import AdminNavigation from '../../../components/AdminNavigation.vue';
 
     const route = useRoute();
     const router = useRouter();
@@ -21,6 +22,7 @@ import Navigation from '../../../components/Navigation.vue';
 <template>
 
      <Navigation/>
+     <AdminNavigation/>
     <h2>Edit category</h2>
     <Form v-if="category" :category="category" @submit="handleSubmit" />
 </template>

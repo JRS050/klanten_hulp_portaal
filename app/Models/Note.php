@@ -10,4 +10,10 @@ class Note extends Model
     public function ticket(): BelongsTo{
         return $this->belongsTo(Ticket::class);
     }
+
+    protected $fillable = [
+        'body',
+        'ticket_id',
+    ];
 }
+
