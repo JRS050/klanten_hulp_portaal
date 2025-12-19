@@ -9,14 +9,16 @@
     import Form2 from '../components/Form2.vue';
     import Form from '../../answers/components/Form.vue';
     import { categoryStore } from '../../categories/store';
-    import { answerStore } from '../../answers/store';
+
+    
+
     import errorMessage from '../../../services/error/errorMessage.vue';
     import { noteStore } from '../../notes/store';
     import NotesForm from '../../notes/components/NotesForm.vue';
+import Overview from '../../answers/pages/Overview.vue';
 
     ticketStore.actions.getAll();
     categoryStore.actions.getAll();
-    answerStore.actions.getAll();
     noteStore.actions.getAll();
     
 
@@ -27,7 +29,7 @@
 
     const ticket = ticketStore.getters.getById(route.params.id);
 
-    const answers = answerStore.getters.getByIds(ticket.value.answers_ids);
+    const answers_ids = ticket.value.answers_ids;
 
     const user = ref();
     const error = ref();
@@ -57,19 +59,19 @@
 
     //Answer logic
 
-    const answer = ref({
-        body: '',
-        ticket_id: route.params.id,
-    });
+    // const answer = ref({
+    //     body: '',
+    //     ticket_id: route.params.id,
+    // });
 
-    const postAnswer = async (data) => {
-        await answerStore.actions.create(data);
-        answer.value.body = '';
-    };
+    // const postAnswer = async (data) => {
+    //     await answerStore.actions.create(data);
+    //     answer.value.body = '';
+    // };
 
-    const handleSubmitAnswer = async (data) => {
-        await postAnswer(data);
-    };
+    // const handleSubmitAnswer = async (data) => {
+    //     await postAnswer(data);
+    // };
 
     //Notes logic
 
@@ -130,7 +132,11 @@
     </div>
     <br></br>
     <!-- Answers section -->
-    <div>
+    <div v-if="ticket">
+        <Overview :answers_id="answers_ids" :ticket_id="route.params.id"/>
+    </div>
+     
+    <!-- <div>
         <h3>Post an answer</h3>
         <Form :answer="answer" @submit="handleSubmitAnswer"/>
     </div>
@@ -148,9 +154,9 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> -->
     <!-- Notes section -->
-    <div>
+    <!-- <div>
         <h3>Notes</h3>
         <NotesForm :note="note" @submit="handleSubmitNote"/>
         <table v-if="notes.length > 0">
@@ -167,5 +173,5 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> -->
 </template>

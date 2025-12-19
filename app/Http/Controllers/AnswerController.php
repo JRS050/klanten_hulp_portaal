@@ -18,6 +18,7 @@ class AnswerController extends Controller
     }
 
     public function store(StoreAnswerRequest $request){
+        dd($request);
         $answer = Answer::create($request->validated());
         $answers = Answer::all();
         $user_id = Ticket::where('id', $request->ticket_id)->pluck('user_id');
