@@ -5,17 +5,15 @@
     import { ticketStore } from '../store';
     import { useRoute } from 'vue-router';
     import { getRequest } from '../../../services/http';
-    import { Status } from '../status';
     import Form2 from '../components/Form2.vue';
-    import Form from '../../answers/components/Form.vue';
     import { categoryStore } from '../../categories/store';
 
     
 
     import errorMessage from '../../../services/error/errorMessage.vue';
     import { noteStore } from '../../notes/store';
-    import NotesForm from '../../notes/components/NotesForm.vue';
 import Overview from '../../answers/pages/Overview.vue';
+import NotesOverview from '../../notes/pages/NotesOverview.vue';
 
     ticketStore.actions.getAll();
     categoryStore.actions.getAll();
@@ -57,46 +55,6 @@ import Overview from '../../answers/pages/Overview.vue';
         await updateTicket(route.params.id, data);
     }
 
-    //Answer logic
-
-    // const answer = ref({
-    //     body: '',
-    //     ticket_id: route.params.id,
-    // });
-
-    // const postAnswer = async (data) => {
-    //     await answerStore.actions.create(data);
-    //     answer.value.body = '';
-    // };
-
-    // const handleSubmitAnswer = async (data) => {
-    //     await postAnswer(data);
-    // };
-
-    //Notes logic
-
-    const notes = noteStore.getters.getByIds(ticket.value.notes_ids);
-
-    const note = ref({
-        body: '',
-        ticket_id: route.params.id,
-    });
-
-    const postNote = async (data) => {
-        await noteStore.actions.create(data);
-        note.value = {
-        body: '',
-        ticket_id: route.params.id,
-    }
-    };
-
-    const handleSubmitNote = async (data) => {
-        await postNote(data);
-    };
-
-    const deleteNote = async (id) => {
-        await noteStore.actions.delete(id);
-    };
 
 </script>
 <template>
@@ -133,7 +91,12 @@ import Overview from '../../answers/pages/Overview.vue';
     <br></br>
     <!-- Answers section -->
     <div v-if="ticket">
-        <Overview :answers_id="answers_ids" :ticket_id="route.params.id"/>
+        <Overview :answers_id="answers_ids" :ticket_id="Number(route.params.id)"/>
+    </div>
+
+    <!-- Notes section -->
+    <div v-if="ticket">
+        <NotesOverview :notes_id="ticket.notes_ids" :ticket_id="Number(route.params.id)"/>
     </div>
      
     <!-- <div>

@@ -7,19 +7,18 @@
     const answers_id = ref(props.answers_id);
     answerStore.actions.getAll();
 
-    const answers = answerStore.getters.getByIds(answers_id);
+    console.log(answers_id.value);
+
+    const answers = answerStore.getters.getByIds(answers_id.value);
 
     const answer = ref({
         body: '',
         ticket_id: props.ticket_id,
     });
 
-    const postAnswer = async (data) => {
-        await answerStore.actions.create(data);
-    };
-
     const handleSubmit = async (data) => {
-        await postAnswer(props.ticket_id, data);
+        console.log(data);
+        await answerStore.actions.create(data);
         answer.value.body = '';
     }
 
@@ -39,7 +38,7 @@
             <tbody>
                 <tr v-for="answer in answers" :key="answer.id">
                     <td>{{ answer.body }}</td>
-                    <td><RouterLink :to="{name:'editAnswer', params:{id: answer.id}}">Edit</RouterLink></td>
+                    <td><RouterLink :to="{name:'editAnswer', params:{id: Number(answer.id)}}">Edit</RouterLink></td>
                 </tr>
             </tbody>
         </table>

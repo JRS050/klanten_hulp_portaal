@@ -15,7 +15,7 @@ import NotesForm from '../components/NotesForm.vue';
 
     const handleSubmit = async (data) => {
         await updateNote(route.params.id, data);
-        router.push({name: 'myNotes'});
+        router.back();
     }
 </script>
 <template>
