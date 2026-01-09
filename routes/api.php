@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\UserController;
 
 Route::get('/me', [AuthController::class, 'me']
 )->middleware('auth:sanctum');
@@ -40,3 +41,6 @@ Route::post('/notes',[NoteController::class, 'store'])->middleware('auth:sanctum
 Route::put('/notes/{note}',[NoteController::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/notes/{note}',[NoteController::class, 'destroy'])->middleware('auth:sanctum');
 
+Route::get('/users',[UserController::class, 'index'])->middleware('auth:sanctum');
+Route::put('/users/{user}',[UserController::class, 'update'])->middleware('auth:sanctum');
+Route::delete('/users/{user}',[UserController::class, 'delete'])->middleware('auth:sanctum');
