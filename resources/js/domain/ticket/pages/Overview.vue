@@ -4,7 +4,26 @@
     import Logout from '../../../components/Logout.vue';
     import Navigation from '../../../components/Navigation.vue';
     import { categoryStore } from '../../categories/store';
-import AdminNavigation from '../../../components/AdminNavigation.vue';
+    import AdminNavigation from '../../../components/AdminNavigation.vue';
+    import { adminAuth } from '../../../components/AdminAuth';
+import { ref } from 'vue';
+
+    const adminAccess = ref();
+
+    async function checkAdminAccess() {
+        try {
+            const response = await adminAuth();
+            adminAccess.value = response;
+            return response;
+        } catch (error) {
+            console.error('Admin access check failed:', error);
+            return error;
+        }
+    }
+
+    checkAdminAccess();
+
+
 
     ticketStore.actions.getAll();
     const tickets = ticketStore.getters.all;
@@ -23,6 +42,8 @@ import AdminNavigation from '../../../components/AdminNavigation.vue';
     <Navigation/>
 
     <AdminNavigation/>
+    
+    
 
     <h2>Own tickets overview</h2>
 

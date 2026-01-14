@@ -37,7 +37,7 @@
         <tbody>
             <tr v-for="user in users">
                 <td>{{ user.id }}</td>
-                <td>{{ user.username }}</td>
+                <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
                 <td>Role WIP</td>
                 <td><RouterLink :to="{name:'editUser', params:{id: user.id}}">Edit</RouterLink>
