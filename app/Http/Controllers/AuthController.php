@@ -58,6 +58,8 @@ class AuthController extends Controller
         $user = Auth::user();
         if($user->admin_status == 1){
             return true;
+        } else {
+            return false;
         }
     }
 
