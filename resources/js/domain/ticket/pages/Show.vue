@@ -11,10 +11,26 @@
     import { noteStore } from '../../notes/store';
     import Overview from '../../answers/pages/Overview.vue';
     import NotesOverview from '../../notes/pages/NotesOverview.vue';
+import AdminNavigation from '../../../components/AdminNavigation.vue';
 
     ticketStore.actions.getAll();
     categoryStore.actions.getAll();
-    noteStore.actions.getAll();
+
+    const adminAccess = ref();
+
+    async function checkAdminAccess() {
+        try {
+            const response = await getRequest('/admin-access');
+            adminAccess.value = response.data;
+            console.log(adminAccess.value);
+            return response;
+        } catch (error) {
+            console.error('Admin access check failed:', error);
+            return error;
+        }
+    }
+
+    checkAdminAccess();
     
 
     const formPurpose = [
@@ -24,8 +40,6 @@
 
     const ticket = ticketStore.getters.getById(route.params.id);
     console.log(ticket.value);
-
-    const answers_ids = ref(ticket.value.answers_ids);
 
     const user = ref();
     const error = ref();
@@ -62,6 +76,10 @@
 
     <Navigation/>
 
+    <div v-if="adminAccess==1">
+        <AdminNavigation/>
+    </div>
+
     <errorMessage/>
 
     <div>
@@ -74,7 +92,7 @@
                         <br></br>
                         Status:{{ ticket.status }}
                     </th>
-                    <td>
+                    <td v-if="adminAccess==1">
                         <Form2 :ticket="ticket" :purpose="formPurpose[0]" @submit="handleSubmit" />
                     </td>
                 </tr>
@@ -89,11 +107,11 @@
     <br></br>
     <!-- Answers section -->
     <div v-if="ticket">
-        <Overview :answers_id="answers_ids" :ticket_id="Number(route.params.id)"/>
+        <Overview :answers_id="ticket.answers_ids" :ticket_id="Number(route.params.id)"/>
     </div>
 
     <!-- Notes section -->
-    <div v-if="ticket">
+    <div v-if="ticket && adminAccess==1">
         <NotesOverview :notes_id="ticket.notes_ids" :ticket_id="Number(route.params.id)"/>
     </div> 
 </template>

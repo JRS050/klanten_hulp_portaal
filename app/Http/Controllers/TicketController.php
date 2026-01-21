@@ -14,10 +14,10 @@ class TicketController extends Controller
 {
     public function index(){
         $user = Auth::user();
-        if($user->admin_status == 1){
-            return TicketResource::collection(Ticket::all()->sortBy('created_at'));
+        if($user->admin_status !== true){
+            return TicketResource::collection(Ticket::query()->where('user_id', $user->id)->get()->sortBy('created_at')); 
         } else {
-            return TicketResource::collection(Ticket::query()->where('user_id', $user->id)->get()->sortBy('created_at'));
+            return TicketResource::collection(Ticket::all()->sortBy('created_at'));
         }
         
     }
