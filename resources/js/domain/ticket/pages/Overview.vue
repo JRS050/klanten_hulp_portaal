@@ -8,6 +8,8 @@
     import { adminAuth } from '../../../components/AdminAuth';
     import { ref } from 'vue';
     import { getRequest } from '../../../services/http';
+import { usersStore } from '../../users/store';
+
 
     const adminAccess = ref();
 
@@ -46,6 +48,7 @@
     const tickets = ticketStore.getters.all;
 
     categoryStore.actions.getAll();
+    usersStore.actions.getAll();
 
     const deleteTicket = async (id) => {
         await ticketStore.actions.delete(id);
@@ -69,7 +72,7 @@
 
     <errorMessage/>
 
-    <table bordered>
+    <table>
         <thead>
             <tr>
                 <th>Id</th>
@@ -92,12 +95,11 @@
                     {{ categoryStore.getters.getByIds(ticket.category_ids).value.map(c => c.title).join(', ') }}    
                 </td>
                 <td>{{ ticket.status }}</td>
-                <td>{{ ticket.user_id }}</td>
+                <td>{{ ticket.user_id }}{{ usersStore.getters.getById(ticket.user_id).value.name }}</td>
                 <td>{{ ticket.created_at }}</td>
                 <td>{{ ticket.updated_at }}</td>
-                <td>{{ ticket.assigned_to }}</td>
+                <td>{{ ticket.assigned_to }}{{ usersStore.getters.getById(ticket.assigned_to).value }}</td>
                 <td>    
-                    <!-- Add json response from back end to route parameters below -->
                     <RouterLink :to="{name:'ticketInfo', params:{id: ticket.id}}">More Info</RouterLink><br>     
                 </td>
                 <td v-if="adminAccess == 1 || user_id == ticket.user_id">

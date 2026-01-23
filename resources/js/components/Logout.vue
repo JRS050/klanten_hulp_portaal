@@ -7,7 +7,8 @@
 
     const logout = async () =>{
         await deleteRequest('/logout');
-        router.push({ name: 'login'});
+        await router.push({ name: 'login'});
+        location.reload();
     }
 </script>
 <template>

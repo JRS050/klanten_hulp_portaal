@@ -8,8 +8,8 @@
     const router = useRouter();
 
     const addTicket = async (data) => {
-        await ticketStore.actions.create(data);
-        router.push({name: 'tickets.overview'});
+        await ticketStore.actions.create(data); 
+        router.push({name: 'myTickets'});
     };
 
     const ticket = ref({

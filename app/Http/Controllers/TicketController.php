@@ -14,7 +14,8 @@ class TicketController extends Controller
 {
     public function index(){
         $user = Auth::user();
-        if($user->admin_status !== true){
+        // dd($user);
+        if($user->admin_status !== 1){
             return TicketResource::collection(Ticket::query()->where('user_id', $user->id)->get()->sortBy('created_at')); 
         } else {
             return TicketResource::collection(Ticket::all()->sortBy('created_at'));
@@ -34,13 +35,14 @@ class TicketController extends Controller
     }
 
     public function store(StoreTicketRequest $request) {
+        // dd($request);
         $ticket = Ticket::create($request->validated());
         $user = Auth::user();
         $ticket->user_id = $user->id;
-        $ticket->category_id = $request->category_id;
+        $ticket->categories()->attach($request->validated(['category_id']));
         $ticket->save();
-        $tickets = Ticket::all();
-        return TicketResource::collection($tickets);
+        // $tickets = Ticket::all();
+        return;
     }
 
     public function update(StoreTicketRequest $request, Ticket $ticket) {
@@ -50,8 +52,7 @@ class TicketController extends Controller
             $ticket->categories()->detach();
             $ticket->categories()->attach($request->validated(['category_id']));
         };
-        $tickets = Ticket::all();
-        return TicketResource::collection($tickets);
+        return;
     }
 
     public function destroy(Ticket $ticket) {

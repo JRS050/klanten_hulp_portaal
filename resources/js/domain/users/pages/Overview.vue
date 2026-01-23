@@ -36,10 +36,11 @@
         </thead>
         <tbody>
             <tr v-for="user in users">
-                <td>{{ user.id }}</td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.email }}</td>
-                <td>Role WIP</td>
+                <td>{{ user.id }} </td>
+                <td>{{ user.name }} </td>
+                <td>{{ user.email }} </td>
+                <td v-if="user.admin_status == 1">Admin </td>
+                <td v-else>User</td>
                 <td><RouterLink :to="{name:'editUser', params:{id: user.id}}">Edit</RouterLink>
                     <button @click="deleteUser(user.id)">Delete</button>
                 </td>
