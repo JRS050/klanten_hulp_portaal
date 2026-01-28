@@ -22,7 +22,10 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'username' => 'required|string|max:255',
             'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'telephone_number' => 'nullable|string|max:20',
             'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('users')->ignore($this->user()->id)],
         ];
     }

@@ -98,7 +98,7 @@ import { usersStore } from '../../users/store';
                 <td>{{ ticket.user_id }}{{ usersStore.getters.getById(ticket.user_id).value.name }}</td>
                 <td>{{ ticket.created_at }}</td>
                 <td>{{ ticket.updated_at }}</td>
-                <td>{{ ticket.assigned_to }}{{ usersStore.getters.getById(ticket.assigned_to).value }}</td>
+                <td>{{ ticket.assigned_to }}{{ usersStore.getters.getById(ticket.assigned_to).value.name }}</td>
                 <td>    
                     <RouterLink :to="{name:'ticketInfo', params:{id: ticket.id}}">More Info</RouterLink><br>     
                 </td>

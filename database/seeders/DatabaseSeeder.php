@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Ticket;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,26 +18,44 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-                'name' => 'Admin',
-                'email' => 'admin@example.com',
-                'password' => 'test',
-                'admin_status' => true
+            'username' => 'Admin',
+            'name' => 'Jon',
+            'surname' => 'User',
+            'telephone_number' => '1234567890',
+            'email' => 'admin@example.com',
+            'password' => 'test',
+            'admin_status' => true
             ],
         );
         User::factory()->create([
-                'name' => 'Admin2',
-                'email' => 'admin2@example.com',
-                'password' => 'test',
-                'admin_status' => true
+            'username' => 'Admin2',
+            'name' => 'Marco',
+            'surname' => 'Rossi',
+            'telephone_number' => '0987654321',
+            'email' => 'admin2@example.com',
+            'password' => 'test',
+            'admin_status' => true
             ],
         );
         User::factory()->create([
-                'name' => 'User',
-                'email' => 'user@example.com',
-                'password' => 'test',
-                'admin_status' => false
+            'username' => 'User',
+            'name' => 'Paola',
+            'surname' => 'Marti',
+            'telephone_number' => '5555555555',
+            'email' => 'user@example.com',
+            'password' => 'test',
+            'admin_status' => false
             ],
         );
-        Ticket::factory(3)->create();
+        User::factory(7)->create();
+
+        Category::factory(5)->create();
+
+        Ticket::factory(10)->create()->each(function ($ticket) {
+            $categories = Category::inRandomOrder()->take(rand(1, 3))->pluck('id');
+            $ticket->categories()->attach($categories);
+        });
+
+        
     }
 }

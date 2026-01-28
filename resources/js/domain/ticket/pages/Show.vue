@@ -8,7 +8,6 @@
     import Form2 from '../components/Form2.vue';
     import { categoryStore } from '../../categories/store';
     import errorMessage from '../../../services/error/errorMessage.vue';
-    import { noteStore } from '../../notes/store';
     import Overview from '../../answers/pages/Overview.vue';
     import NotesOverview from '../../notes/pages/NotesOverview.vue';
 import AdminNavigation from '../../../components/AdminNavigation.vue';

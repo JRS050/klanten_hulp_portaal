@@ -18,12 +18,17 @@ class TicketFactory extends Factory
      */
     public function definition(): array
     {
+         $user = User::where('admin_status', false)->inRandomOrder()->first();
+
+        // Get a random user with admin_status true
+        $adminUser = User::where('admin_status', true)->inRandomOrder()->first();
+
         return [
             'title' => $this->faker->word,
             'body' => $this->faker->sentence,
             'status' => TicketStatus::PENDING->value,
-            'user_id' => rand(1, User::count()),
-            'assigned_to' => rand(1, User::count()),
+            'user_id' => $user->id,
+            'assigned_to' => $adminUser->id,
         ];
     }
 }

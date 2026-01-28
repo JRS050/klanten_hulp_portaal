@@ -30,6 +30,9 @@
             <tr>
                 <th>Id</th>
                 <th>Username</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Telephone</th>
                 <th>Email</th>
                 <th>Role</th>
             </tr>
@@ -37,7 +40,10 @@
         <tbody>
             <tr v-for="user in users">
                 <td>{{ user.id }} </td>
+                <td>{{ user.username }} </td>
                 <td>{{ user.name }} </td>
+                <td>{{ user.surname }} </td>
+                <td>{{ user.telephone_number }} </td>
                 <td>{{ user.email }} </td>
                 <td v-if="user.admin_status == 1">Admin </td>
                 <td v-else>User</td>
