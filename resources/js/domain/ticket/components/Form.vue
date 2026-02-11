@@ -34,12 +34,6 @@ import { categoryStore } from '../../categories/store';
             <select v-model="form.category_id" multiple>
                 <option v-for="category in categories" :value="category.id">{{ category.title }}</option>
             </select>
-            <!-- <div v-for="category in categories" :key="category.id">
-                <label>
-                    <input type="checkbox" :value="category.id" v-model="form.category_id">
-                    {{ category.title }}
-                </label>
-            </div> -->
             <br>
         <button type="submit">Post ticket</button>
     </form>
